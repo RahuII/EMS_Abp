@@ -1,9 +1,5 @@
 ﻿using EMS.Permissions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
@@ -15,7 +11,7 @@ public class EmployeeAppService : CrudAppService<
         EmployeeDto, //Used to show employees
         Guid, //Primary key of the employee entity
         PagedAndSortedResultRequestDto, //Used for paging/sorting
-        CreateUpdateEmployeeDto>, //Used to create/update a book
+        CreateUpdateEmployeeDto>, //Used to create/update a Employee
     IEmployeeAppService
 {
     public EmployeeAppService(IRepository<Employee, Guid> repository)

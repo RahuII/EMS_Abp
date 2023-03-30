@@ -15,10 +15,16 @@ public class EMSPermissionDefinitionProvider : PermissionDefinitionProvider
         employeeMSGroup.AddPermission(EMSPermissions.Dashboard.Host, L("Permission:Dashboard"), MultiTenancySides.Host);
         employeeMSGroup.AddPermission(EMSPermissions.Dashboard.Tenant, L("Permission:Dashboard"), MultiTenancySides.Tenant);
 
-        var booksPermission = employeeMSGroup.AddPermission(EMSPermissions.Employees.Default, L("Permission:Books"));
-        booksPermission.AddChild(EMSPermissions.Employees.Create, L("Permission:Employees.Create"));
-        booksPermission.AddChild(EMSPermissions.Employees.Edit, L("Permission:Employees.Edit"));
-        booksPermission.AddChild(EMSPermissions.Employees.Delete, L("Permission:Employees.Delete"));
+        var employeesPermission = employeeMSGroup.AddPermission(EMSPermissions.Employees.Default, L("Permission:Employees"));
+        employeesPermission.AddChild(EMSPermissions.Employees.Create, L("Permission:Employees.Create"));
+        employeesPermission.AddChild(EMSPermissions.Employees.Edit, L("Permission:Employees.Edit"));
+        employeesPermission.AddChild(EMSPermissions.Employees.Delete, L("Permission:Employees.Delete"));
+
+        var departmentsPermission = employeeMSGroup.AddPermission(EMSPermissions.Departments.Default, L("Permission:Departments"));
+        departmentsPermission.AddChild(EMSPermissions.Departments.Create, L("Permission:Departments.Create"));
+        departmentsPermission.AddChild(EMSPermissions.Departments.Edit, L("Permission:Departments.Edit"));
+        departmentsPermission.AddChild(EMSPermissions.Departments.Delete, L("Permission:Departments.Delete"));
+
     }
 
     private static LocalizableString L(string name)

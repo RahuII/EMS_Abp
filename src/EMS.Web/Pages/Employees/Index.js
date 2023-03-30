@@ -28,7 +28,7 @@ $(function () {
                                     text: l('Delete'),
                                     visible: abp.auth.isGranted('EMS.Employees.Delete'),
                                     confirmMessage: function (data) {
-                                        return l('BookDeletionConfirmationMessage', data.record.name);
+                                        return l('EmployeeDeletionConfirmationMessage', data.record.name);
                                     },
                                     action: function (data) {
                                         eMS.employees.employee

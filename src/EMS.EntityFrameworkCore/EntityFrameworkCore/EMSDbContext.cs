@@ -1,4 +1,5 @@
-﻿using EMS.Employees;
+﻿using EMS.Departments;
+using EMS.Employees;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
@@ -27,6 +28,8 @@ public class EMSDbContext :
 {
     /* Add DbSet properties for your Aggregate Roots / Entities here. */
     public DbSet<Employee> Employees { get; set; }
+    public DbSet<Department> Departments { get; set; }
+
 
     #region Entities from the modules
 
@@ -90,6 +93,20 @@ public class EMSDbContext :
                 EMSConsts.DbSchema);
             b.ConfigureByConvention(); //auto configure for the base class props
             b.Property(x => x.Name).IsRequired().HasMaxLength(30);
+        });
+
+        builder.Entity<Department>(b =>
+        {
+            b.ToTable(EMSConsts.DbTablePrefix + "Department",
+                EMSConsts.DbSchema);
+
+            b.ConfigureByConvention();
+
+            b.Property(x => x.Name)
+                .IsRequired()
+                .HasMaxLength(DepartmentConsts.MaxNameLength);
+
+            b.HasIndex(x => x.Name);
         });
     }
 }

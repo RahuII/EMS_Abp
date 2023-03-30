@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EMS.Departments;
 using EMS.Employees;
 
 namespace EMS;
@@ -11,5 +12,7 @@ public class EMSApplicationAutoMapperProfile : Profile
          * Alternatively, you can split your mapping configurations
          * into multiple profile classes for a better organization. */
         CreateMap<Employee, EmployeeDto>();
+        CreateMap<Department, DepartmentDto>();
+
     }
 }
