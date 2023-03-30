@@ -1,0 +1,35 @@
+﻿@page
+@using EMS.Permissions;
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Mvc.Localization
+@using EMS.Localization
+@using Volo.Abp.Users
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@using EMS.Web.Pages.Employees
+@using Microsoft.Extensions.Localization
+@model IndexModel
+@inject IAuthorizationService AuthorizationService
+@inject IStringLocalizer<EMSResource> L
+@inject IPageLayout PageLayout
+@{
+    PageLayout.Content.MenuItemName = "EMS";
+    PageLayout.Content.Title = L["Employees"].Value;
+}
+@section scripts
+    {
+    <abp-script src="/Pages/Employees/Index.js" />
+}
+@section content_toolbar {
+    @if (await AuthorizationService.IsGrantedAsync(EMSPermissions.Employees.Create))
+    {
+        <abp-button id="NewEmployeeButton" text="@L["NewEmployee"].Value" icon="plus" size="Small" button-type="Primary" />
+    }
+}
+
+<abp-card>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="EmployeesTable"></abp-table>
+    </abp-card-body>
+</abp-card>
+
+
