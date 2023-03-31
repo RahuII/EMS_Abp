@@ -93,6 +93,7 @@ public class EMSDbContext :
                 EMSConsts.DbSchema);
             b.ConfigureByConvention(); //auto configure for the base class props
             b.Property(x => x.Name).IsRequired().HasMaxLength(30);
+            b.HasOne<Department>().WithMany().HasForeignKey(x => x.DepartmentId).IsRequired();
         });
 
         builder.Entity<Department>(b =>

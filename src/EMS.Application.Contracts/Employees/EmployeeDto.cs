@@ -7,6 +7,9 @@ namespace EMS.Employees;
 
 public class EmployeeDto : AuditedEntityDto<Guid>
 {
+    public Guid DepartmentId { get; set; }
+    public string DepartmentName { get; set; }
+
     public string Name { get; set; }
     public DateTime DateOfBirth { get; set; }
     public string Email { get; set; }

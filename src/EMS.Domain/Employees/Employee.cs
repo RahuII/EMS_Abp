@@ -13,4 +13,6 @@ public class Employee : AuditedAggregateRoot<Guid>
     public DateTime DateOfBirth { get; set; }
     public string Email { get; set; }
     public string Phone { get; set; }
+    public Guid DepartmentId { get; set; }
+
 }

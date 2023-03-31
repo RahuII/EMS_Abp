@@ -45,6 +45,13 @@
     "Permission:Employees.View": "Can view employees",
     "Permission:Employees.Create": "Creating new employees",
     "Permission:Employees.Edit": "Editing the employees",
-    "Permission:Employees.Delete": "Deleting the employees"
+    "Permission:Employees.Delete": "Deleting the employees",
+    "Menu:Departments": "Departments",
+    "Departments": "Departments",
+    "DepartmentDeletionConfirmationMessage": "Are you sure to delete the department '{0}'?",
+    "BirthDate": "Birth date",
+    "NewDepartment": "New author",
+    "Description": "Description"
+
   }
 }

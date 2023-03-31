@@ -47,7 +47,13 @@ public class EMSMenuContributor : IMenuContributor
                     url: "/Employees",
                     icon: "fa fa-user"
                 ).RequirePermissions(EMSPermissions.Employees.Default)
-            )
+            ).AddItem( // ADDED THE NEW "AUTHORS" MENU ITEM UNDER THE "BOOK STORE" MENU
+        new ApplicationMenuItem(
+            "EMS.Departments",
+            l["Menu:Departments"],
+            url: "/Departments"
+        ).RequirePermissions(EMSPermissions.Departments.Default)
+    )
         );
 
         if (MultiTenancyConsts.IsEnabled)

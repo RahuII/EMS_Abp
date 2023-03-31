@@ -12,7 +12,9 @@ public class EMSApplicationAutoMapperProfile : Profile
          * Alternatively, you can split your mapping configurations
          * into multiple profile classes for a better organization. */
         CreateMap<Employee, EmployeeDto>();
+        CreateMap<CreateUpdateEmployeeDto, Employee>();
         CreateMap<Department, DepartmentDto>();
+        CreateMap<Department, DepartmentLookupDto>();
 
     }
 }

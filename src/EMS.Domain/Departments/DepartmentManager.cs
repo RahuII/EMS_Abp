@@ -9,7 +9,7 @@ using Volo.Abp.Domain.Services;
 
 namespace EMS.Departments;
 
-public class DepartmentManager :DomainService
+public class DepartmentManager : DomainService
 {
     private readonly IDepartmentRepository _departmentRepository;
     public DepartmentManager(IDepartmentRepository departmentRepository)

@@ -1,0 +1,31 @@
+﻿@page
+@using EMS.Localization
+@using EMS.Permissions
+@using EMS.Web.Pages.Departments
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.Extensions.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@inject IStringLocalizer<EMSResource> L
+@inject IAuthorizationService AuthorizationService
+@model IndexModel
+@inject IPageLayout PageLayout
+@{
+    PageLayout.Content.MenuItemName = "EMS";
+    PageLayout.Content.Title = L["Departments"].Value;
+}
+@section scripts
+    {
+    <abp-script src="/Pages/Departments/Index.js" />
+}
+@section content_toolbar {
+    @if (await AuthorizationService.IsGrantedAsync(EMSPermissions.Departments.Create))
+    {
+        <abp-button id="NewDepartmentButton" text="@L["NewDepartment"].Value" icon="plus" size="Small" button-type="Primary" />
+    }
+}
+
+<abp-card>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="DepartmentsTable"></abp-table>
+    </abp-card-body>
+</abp-card>

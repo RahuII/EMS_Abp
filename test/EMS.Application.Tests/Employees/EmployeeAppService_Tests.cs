@@ -1,4 +1,5 @@
-﻿using Shouldly;
+﻿using EMS.Departments;
+using Shouldly;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,12 @@ namespace EMS.Employees;
 public class EmployeeAppService_Tests : EMSApplicationTestBase
 {
     private readonly IEmployeeAppService _employeeAppService;
+    private readonly IDepartmentAppService _departmentAppService;
 
     public EmployeeAppService_Tests()
     {
         _employeeAppService = GetRequiredService<IEmployeeAppService>();
+        _departmentAppService = GetRequiredService<IDepartmentAppService>();
     }
 
     [Fact]
@@ -29,15 +32,18 @@ public class EmployeeAppService_Tests : EMSApplicationTestBase
 
         //Assert
         result.TotalCount.ShouldBeGreaterThan(0);
-        result.Items.ShouldContain(b => b.Name == "rahul");
+        result.Items.ShouldContain(b => b.Name == "Rahul");
     }
     [Fact]
     public async Task Should_Create_A_Valid_Employee()
     {
+        var departments = await _departmentAppService.GetListAsync(new GetDepartmentListDto());
+        var firstAuthor = departments.Items.First();
         //Act
         var result = await _employeeAppService.CreateAsync(
             new CreateUpdateEmployeeDto
             {
+                DepartmentId = firstAuthor.Id,
                 Name = "New Name",
                 DateOfBirth = new DateTime(2002, 3, 9),
                 Email = "emp@gmail.com",
@@ -49,23 +55,23 @@ public class EmployeeAppService_Tests : EMSApplicationTestBase
         result.Id.ShouldNotBe(Guid.Empty);
         result.Name.ShouldBe("New Name");
     }
-    //[Fact]
-    //public async Task Should_Not_Create_A_Employee_Without_Name()
-    //{
-    //    var exception = await Assert.ThrowsAsync<AbpValidationException>(async () =>
-    //    {
-    //        await _employeeAppService.CreateAsync(
-    //            new CreateUpdateEmployeeDto
-    //            {
-    //                Name = "",
-    //                DateOfBirth = new DateTime(2007, 3, 9),
-    //                Email = "emp1@gmail.com",
-    //                Phone = "1234567890"
-    //            }
-    //        );
-    //    });
+    [Fact]
+    public async Task Should_Not_Create_A_Employee_Without_Email()
+    {
+        var exception = await Assert.ThrowsAsync<AbpValidationException>(async () =>
+        {
+            await _employeeAppService.CreateAsync(
+                new CreateUpdateEmployeeDto
+                {
+                    Name = "",
+                    DateOfBirth = new DateTime(2007, 3, 9),
+                    Email = "emp1gmail.com",
+                    Phone = "1234567890"
+                }
+            );
+        });
 
-    //    exception.ValidationErrors
-    //        .ShouldContain(err => err.MemberNames.Any(mem => mem == "Name"));
-    //}
+        exception.ValidationErrors
+            .ShouldContain(err => err.MemberNames.Any(mem => mem == "Name"));
+    }
 }
