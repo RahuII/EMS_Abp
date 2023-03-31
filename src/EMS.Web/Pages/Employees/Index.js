@@ -47,6 +47,10 @@ $(function () {
                     data: "name"
                 },
                 {
+                    title: l('Department'),
+                    data: "departmentName"
+                },
+                {
                     title: l('Email'),
                     data: "email"
                 },
