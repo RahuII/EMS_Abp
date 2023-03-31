@@ -12,6 +12,10 @@ public interface IEmployeeAppService :
         EmployeeFilterDto, //Used to filter Employees
         CreateUpdateEmployeeDto>
 {
+    /// <summary>
+    /// This method is used to get the lookup data for the Department entity.
+    /// </summary>
+    /// <returns> List of DepartmentLookupDto object that holds details of the Department entity. </returns>
     Task<ListResultDto<DepartmentLookupDto>> GetDepartmentLookupAsync();
 
 }
