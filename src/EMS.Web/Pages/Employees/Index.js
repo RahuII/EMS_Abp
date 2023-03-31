@@ -2,6 +2,11 @@ $(function () {
     var l = abp.localization.getResource('EMS');
     var createModal = new abp.ModalManager(abp.appPath + 'Employees/CreateModal');
     var editModal = new abp.ModalManager(abp.appPath + 'Employees/EditModal');
+    var getFilter = function () {
+        return {
+            filter: $("input[name='Search'").val(),
+        };
+    };
 
     var dataTable = $('#EmployeesTable').DataTable(
         abp.libs.datatables.normalizeConfiguration({
@@ -10,7 +15,7 @@ $(function () {
             order: [[1, "asc"]],
             searching: false,
             scrollX: true,
-            ajax: abp.libs.datatables.createAjax(eMS.employees.employee.getList),
+            ajax: abp.libs.datatables.createAjax(eMS.employees.employee.getList, getFilter),
             columnDefs: [
                 {
                     title: l('Actions'),
@@ -83,6 +88,9 @@ $(function () {
     $('#NewEmployeeButton').click(function (e) {
         e.preventDefault();
         createModal.open();
+    });
+    $("input[name='Search'").change(function () {
+        dataTable.ajax.reload();
     });
 
 });

@@ -15,13 +15,13 @@ namespace EMS.Employees;
 
 [Authorize(EMSPermissions.Employees.Default)]
 public class EmployeeAppService :
-    CrudAppService<
+       CrudAppService<
         Employee, //The Employee entity
-        EmployeeDto, //Used to show employees
-        Guid, //Primary key of the employee entity
-        PagedAndSortedResultRequestDto, //Used for paging/sorting
-        CreateUpdateEmployeeDto>, //Used to create/update a employee
-    IEmployeeAppService //implement the IEmployeeAppService
+        EmployeeDto, //Used to show Employees
+        Guid, //Primary key of the book entity
+        EmployeeFilterDto, //Used for paging/sorting
+        CreateUpdateEmployeeDto>,
+    IEmployeeAppService
 {
     private readonly IDepartmentRepository _departmentRepository;
 
@@ -61,26 +61,30 @@ public class EmployeeAppService :
         return employeeDto;
     }
 
-    public override async Task<PagedResultDto<EmployeeDto>>
-        GetListAsync(PagedAndSortedResultRequestDto input)
+    public override async Task<PagedResultDto<EmployeeDto>> GetListAsync(EmployeeFilterDto input)
     {
-        //Get the IQueryable<Employee> from the repository
         var queryable = await Repository.GetQueryableAsync();
 
-        //Prepare a query to join employees and departments
         var query = from employee in queryable
                     join department in await _departmentRepository.GetQueryableAsync() on employee.DepartmentId equals department.Id
                     select new { employee, department };
 
+
+
         query = query
+            .WhereIf(!string.IsNullOrWhiteSpace(input.Filter),
+            x => x.employee.Name.ToLower().Contains(input.Filter.ToLower()) ||
+            x.department.Name.ToLower().Contains(input.Filter.ToLower()))
             .OrderBy(NormalizeSorting(input.Sorting))
             .Skip(input.SkipCount)
             .Take(input.MaxResultCount);
 
-        //Execute the query and get a list
+
+
         var queryResult = await AsyncExecuter.ToListAsync(query);
 
-        //Convert the query result to a list of EmployeeDto objects
+
+
         var employeeDtos = queryResult.Select(x =>
         {
             var employeeDto = ObjectMapper.Map<Employee, EmployeeDto>(x.employee);
@@ -88,13 +92,13 @@ public class EmployeeAppService :
             return employeeDto;
         }).ToList();
 
-        //Get the total count with another query
+
+
         var totalCount = await Repository.GetCountAsync();
 
-        return new PagedResultDto<EmployeeDto>(
-            totalCount,
-            employeeDtos
-        );
+
+
+        return new PagedResultDto<EmployeeDto>(totalCount, employeeDtos);
     }
 
     public async Task<ListResultDto<DepartmentLookupDto>> GetDepartmentLookupAsync()

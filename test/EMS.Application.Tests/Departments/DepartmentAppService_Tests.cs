@@ -28,7 +28,7 @@ public class DepartmentAppService_Tests : EMSApplicationTestBase
     }
 
     [Fact]
-    public async Task Should_Get_Filtered_Authors()
+    public async Task Should_Get_Filtered_Departments()
     {
         var result = await _departmentAppService.GetListAsync(
             new GetDepartmentListDto { Filter = "Computer" });
@@ -38,7 +38,7 @@ public class DepartmentAppService_Tests : EMSApplicationTestBase
     }
 
     [Fact]
-    public async Task Should_Create_A_New_Author()
+    public async Task Should_Create_A_New_Department()
     {
         var departmentDto = await _departmentAppService.CreateAsync(
             new CreateDepartmentDto
@@ -53,7 +53,7 @@ public class DepartmentAppService_Tests : EMSApplicationTestBase
     }
 
     [Fact]
-    public async Task Should_Not_Allow_To_Create_Duplicate_Author()
+    public async Task Should_Not_Allow_To_Create_Duplicate_Department()
     {
         await Assert.ThrowsAsync<DepartmentAlreadyExistsException>(async () =>
         {

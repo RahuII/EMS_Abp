@@ -39,7 +39,7 @@ public class EMSMenuContributor : IMenuContributor
             new ApplicationMenuItem(
                 "EMS",
                 l["Menu:EMS"],
-                icon: "fa fa-user"
+                icon: "fa fa-users"
             ).AddItem(
                 new ApplicationMenuItem(
                     "EMS.Employees",
@@ -47,13 +47,14 @@ public class EMSMenuContributor : IMenuContributor
                     url: "/Employees",
                     icon: "fa fa-user"
                 ).RequirePermissions(EMSPermissions.Employees.Default)
-            ).AddItem( // ADDED THE NEW "AUTHORS" MENU ITEM UNDER THE "BOOK STORE" MENU
-        new ApplicationMenuItem(
-            "EMS.Departments",
-            l["Menu:Departments"],
-            url: "/Departments"
-        ).RequirePermissions(EMSPermissions.Departments.Default)
-    )
+            ).AddItem( // ADDED THE NEW "DEPARTMENTS" MENU ITEM UNDER THE "EMS" MENU
+            new ApplicationMenuItem(
+                "EMS.Departments",
+                l["Menu:Departments"],
+                url: "/Departments",
+                icon: "fa fa-landmark"
+                ).RequirePermissions(EMSPermissions.Departments.Default)
+            )
         );
 
         if (MultiTenancyConsts.IsEnabled)

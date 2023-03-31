@@ -50,8 +50,7 @@
     "Departments": "Departments",
     "DepartmentDeletionConfirmationMessage": "Are you sure to delete the department '{0}'?",
     "BirthDate": "Birth date",
-    "NewDepartment": "New author",
+    "NewDepartment": "New Department",
     "Description": "Description"
-
   }
 }

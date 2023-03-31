@@ -27,7 +27,7 @@ public class EmployeeAppService_Tests : EMSApplicationTestBase
     {
         //Act
         var result = await _employeeAppService.GetListAsync(
-            new PagedAndSortedResultRequestDto()
+            new EmployeeFilterDto()
         );
 
         //Assert
@@ -38,12 +38,12 @@ public class EmployeeAppService_Tests : EMSApplicationTestBase
     public async Task Should_Create_A_Valid_Employee()
     {
         var departments = await _departmentAppService.GetListAsync(new GetDepartmentListDto());
-        var firstAuthor = departments.Items.First();
+        var firstDepartment = departments.Items.First();
         //Act
         var result = await _employeeAppService.CreateAsync(
             new CreateUpdateEmployeeDto
             {
-                DepartmentId = firstAuthor.Id,
+                DepartmentId = firstDepartment.Id,
                 Name = "New Name",
                 DateOfBirth = new DateTime(2002, 3, 9),
                 Email = "emp@gmail.com",

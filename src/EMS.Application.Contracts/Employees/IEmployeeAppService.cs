@@ -9,7 +9,7 @@ public interface IEmployeeAppService :
     ICrudAppService< //Defines CRUD methods
         EmployeeDto, //Used to show Employees
         Guid, //Primary key of the Employee entity
-        PagedAndSortedResultRequestDto, //Used for paging/sorting
+        EmployeeFilterDto, //Used to filter Employees
         CreateUpdateEmployeeDto>
 {
     Task<ListResultDto<DepartmentLookupDto>> GetDepartmentLookupAsync();
