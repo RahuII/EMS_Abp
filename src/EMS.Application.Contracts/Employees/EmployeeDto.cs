@@ -24,5 +24,6 @@ public class EmployeeDto : AuditedEntityDto<Guid>
     [Required]
     [RegularExpression(RegexConst.EmailRegex)]
     public string Email { get; set; }
+    [Required]
     public string Phone { get; set; }
 }

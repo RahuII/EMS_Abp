@@ -20,6 +20,7 @@ public class CreateUpdateEmployeeDto
     [RegularExpression(RegexConst.EmailRegex)]
     public string Email { get; set; }
 
+    [Required]
     [RegularExpression(RegexConst.PhoneNumberRegex)]
     public string Phone { get; set; }
 }
